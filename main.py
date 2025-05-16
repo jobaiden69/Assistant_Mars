@@ -94,9 +94,10 @@ async def help_command(update: Update, context: CallbackContext) -> None:
 async def mars_map(update: Update, context: CallbackContext):
     """Отправляет случайную карту Марса"""
     map_types = {
-        "Топографическая": "https://astrogeology.usgs.gov/cache/images/04085e995d7c4f4795f61a9c5f3577f3_mars_mola_cylk_lrg.jpg",
-        "Минералогическая": "https://planetarymaps.usgs.gov/mosaic/Mars_OMEGA_oxides.jpg",
-        "Глобальная": "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg"
+        "Полушарие Цербера": "https://imgur.com/PgqEV5Q",
+        "Полушарие Скиапарелли": "https://imgur.com/cYwMJkK",
+        "Большое Полушарие Сиртиса": "https://imgur.com/Br5qMg9",
+        "Полушарие Долины Маринера": "https://imgur.com/ZzlyEmw"
     }
 
     map_name, map_url = random.choice(list(map_types.items()))
@@ -114,8 +115,48 @@ async def mars_map(update: Update, context: CallbackContext):
 # Команда /morale
 async def morale_support(update: Update, context: CallbackContext) -> None:
     """Отправляет мотивационную картинку с котиком для поддержки колонистов"""
-    cat_photos = [
-        "https://imgur.com/gallery/photo-of-cat-luma-every-day-day-101-wyToWOA"
+    cat_photos = cat_photos = [
+        "https://imgur.com/PgqEV5Q",
+        "https://imgur.com/Br5qMg9"
+        "https://imgur.com/pvGOgH1"
+        "https://imgur.com/XWae7om"
+        "https://imgur.com/q3vu8qg"
+        "https://imgur.com/q3vu8qg"
+        "https://imgur.com/ysblb02"
+        "https://imgur.com/XdYkAGd"
+        "https://imgur.com/3DwxNN8"
+        "https://imgur.com/iPIwOnO"
+        "https://imgur.com/uBLZiwy"
+        "https://imgur.com/Qv6WtHd"
+        "https://imgur.com/d0qVO7f"
+        "https://imgur.com/jGGJo8e"
+        "https://imgur.com/VGU8UsM"
+        "https://imgur.com/g4pb0Ay"
+        "https://imgur.com/xBdC8Iv"
+        "https://imgur.com/fi92z8e"
+        "https://imgur.com/85vXA6s"
+        "https://imgur.com/6NPUOs3"
+        "https://imgur.com/WvMyHu7"
+        "https://imgur.com/WMmU1Dg"
+        "https://imgur.com/iSbR5CQ"
+        "https://imgur.com/hkk063c"
+        "https://imgur.com/Dd6pWTI"
+        "https://imgur.com/cLSI8q1"
+        "https://imgur.com/Ril3Irz"
+        "https://imgur.com/Ril3Irz"
+        "https://imgur.com/2NcLqtV"
+        "https://imgur.com/dRCvf26"
+        "https://imgur.com/zdEYkd2"
+        "https://imgur.com/ce9LCFT"
+        "https://imgur.com/VQaRQc5"
+        "https://imgur.com/1QWsEQE"
+        "https://imgur.com/Q8WBgwv"
+        "https://imgur.com/o8pTwbD"
+        "https://imgur.com/XMOptl9"
+        "https://imgur.com/m1e9hqA"
+        "https://imgur.com/iTaOok5"
+        "https://imgur.com/GFktco2"
+        "https://imgur.com/RpQnjey"
     ]
 
     motivational_phrases = [
