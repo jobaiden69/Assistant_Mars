@@ -19,6 +19,12 @@ import sqlite3
 import random
 from datetime import datetime
 
+oxygen = random.randint(0, 150) / 100
+pressure = random.randint(0, 150) / 100
+energy = random.randint(0, 150) / 100
+water = random.randint(0, 150) / 100
+temperature = random.randint(0, 150) / 100
+
 # Настройка логирования
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -74,7 +80,8 @@ async def start(update: Update, context: CallbackContext) -> None:
         "/select_crew - Выбрать члена экипажа для выхода\n"
         "/morale - Моральная поддержка\n"
         "/check_status - Проверить состояние систем\n"
-        "/colonists - Список колонистов"
+        "/colonists - Список колонистов\n"
+        '/map - Фотография Марса рандомной точки'
     )
 
 
@@ -87,7 +94,8 @@ async def help_command(update: Update, context: CallbackContext) -> None:
         "/select_crew - Выбрать члена экипажа для выхода\n"
         "/morale - Моральная поддержка\n"
         "/check_status - Проверить состояние систем\n"
-        "/colonists - Список колонистов"
+        "/colonists - Список колонистов\n"
+        '/map - Фотография Марса рандомной точки'
     )
 
 
@@ -115,48 +123,18 @@ async def mars_map(update: Update, context: CallbackContext):
 # Команда /morale
 async def morale_support(update: Update, context: CallbackContext) -> None:
     """Отправляет мотивационную картинку с котиком для поддержки колонистов"""
-    cat_photos = cat_photos = [
-        "https://imgur.com/PgqEV5Q",
-        "https://imgur.com/Br5qMg9"
+    cat_photos = [
         "https://imgur.com/pvGOgH1"
         "https://imgur.com/XWae7om"
-        "https://imgur.com/q3vu8qg"
         "https://imgur.com/q3vu8qg"
         "https://imgur.com/ysblb02"
         "https://imgur.com/XdYkAGd"
         "https://imgur.com/3DwxNN8"
         "https://imgur.com/iPIwOnO"
         "https://imgur.com/uBLZiwy"
-        "https://imgur.com/Qv6WtHd"
         "https://imgur.com/d0qVO7f"
         "https://imgur.com/jGGJo8e"
         "https://imgur.com/VGU8UsM"
-        "https://imgur.com/g4pb0Ay"
-        "https://imgur.com/xBdC8Iv"
-        "https://imgur.com/fi92z8e"
-        "https://imgur.com/85vXA6s"
-        "https://imgur.com/6NPUOs3"
-        "https://imgur.com/WvMyHu7"
-        "https://imgur.com/WMmU1Dg"
-        "https://imgur.com/iSbR5CQ"
-        "https://imgur.com/hkk063c"
-        "https://imgur.com/Dd6pWTI"
-        "https://imgur.com/cLSI8q1"
-        "https://imgur.com/Ril3Irz"
-        "https://imgur.com/Ril3Irz"
-        "https://imgur.com/2NcLqtV"
-        "https://imgur.com/dRCvf26"
-        "https://imgur.com/zdEYkd2"
-        "https://imgur.com/ce9LCFT"
-        "https://imgur.com/VQaRQc5"
-        "https://imgur.com/1QWsEQE"
-        "https://imgur.com/Q8WBgwv"
-        "https://imgur.com/o8pTwbD"
-        "https://imgur.com/XMOptl9"
-        "https://imgur.com/m1e9hqA"
-        "https://imgur.com/iTaOok5"
-        "https://imgur.com/GFktco2"
-        "https://imgur.com/RpQnjey"
     ]
 
     motivational_phrases = [
@@ -241,17 +219,34 @@ async def list_colonists(update: Update, context: CallbackContext) -> None:
 
 # Команда /check_status
 async def check_status(update: Update, context: CallbackContext) -> None:
-    systems = {
-        "Кислород": random.choice(["✅ Норма", "⚠️ Понижен", "❌ Опасность"]),
-        "Давление": random.choice(["✅ Норма", "⚠️ Колебания", "❌ Опасность"]),
-        "Энергия": random.choice(["✅ Норма", "⚠️ Понижена", "❌ Критично"]),
-        "Вода": random.choice(["✅ Норма", "⚠️ Расход", "❌ Дефицит"]),
-        "Температура": random.choice(["✅ Норма", "⚠️ Колебания", "❌ Опасность"])
-    }
+    global oxygen
+    global pressure
+    global energy
+    global water
+    global temperature
+
+    q = [oxygen, pressure, energy, water, temperature]
+
+    systems = [
+        ['⚠️ Повышен', "✅ Норма", "⚠️ Понижен", "❌ Опасность"],
+        ['⚠️ Превышено', "✅ Норма", "⚠️ Колебания", "❌ Опасность"],
+        ['⚠️ Повышена', "✅ Норма", "⚠️ Понижена", "❌ Критично"],
+        ['⚠️ Недорасход', "✅ Норма", "⚠️ Расход", "❌ Дефицит"],
+        ['⚠️ Превышена', "✅ Норма", "⚠️ Понижена", "❌ Опасность"]
+    ]
+    names = ['Кислород', 'Давление', 'Энергия', 'Вода', 'Температура']
 
     status_report = "🔧 Статус систем колонии:\n\n"
-    for system, state in systems.items():
-        status_report += f"{system}: {state}\n"
+
+    for a in range(len(q)):
+        if q[a] <= 0.5:
+            status_report += f"{names[a]}: {systems[a][3]}\n"
+        elif q[a] <= 1:
+            status_report += f"{names[a]}: {systems[a][2]}\n"
+        elif q[a] <= 1.2:
+            status_report += f"{names[a]}: {systems[a][1]}\n"
+        else:
+            status_report += f"{names[a]}: {systems[a][0]}\n"
 
     await update.message.reply_text(status_report)
 
@@ -353,6 +348,7 @@ def main() -> None:
     application.add_handler(CommandHandler("select_crew", select_crew))
     application.add_handler(CommandHandler("colonists", list_colonists))
     application.add_handler(CommandHandler("check_status", check_status))
+    application.add_handler(CommandHandler('map', mars_map))
 
     # Обработчик регистрации
     conv_handler = ConversationHandler(
